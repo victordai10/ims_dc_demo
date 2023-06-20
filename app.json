@@ -25,6 +25,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "packagerOpts": {
+      "hostType": "local",
+      "lanType": "ip",
+      "hostIp": "172.20.10.3"
     }
   }
 }

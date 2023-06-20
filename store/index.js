@@ -1,5 +1,5 @@
 //store reducer (redux)
-import { Global } from '@emotion/react';
+// import { Global } from '@emotion/react';
 import { React, createContext, useReducer, useContext, useState } from 'react'
 export const GlobalStoreContext = createContext({});
 
