@@ -15,13 +15,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "iosIMSDCDEMO"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vdai.ims_dc_demo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +31,12 @@
     "packagerOpts": {
       "hostType": "local",
       "lanType": "ip",
-      "hostIp": "172.20.10.3"
+      "hostIp": "192.168.1.162"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "baf4db1b-1ac2-4548-b8df-ba7e9198a4f3"
+      }
     }
   }
 }

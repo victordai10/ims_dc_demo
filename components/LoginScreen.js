@@ -18,7 +18,7 @@ import { GlobalStoreContext } from '../store'
 
 
 const LoginScreen = () => {
-    // const { store } = useContext(GlobalStoreContext);
+    const { store } = useContext(GlobalStoreContext);
     const navigation = useNavigation();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -34,11 +34,11 @@ const LoginScreen = () => {
         // global store reducer to detect being logged in
         // store.setIsLoggedIn(true);
         // Navigate to dashboard page
-        // navigation.navigate('Dashboard');
+        navigation.navigate('Dashboard');
     }
     
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}>
             <Text>Sign in</Text>
             <TextInput
                 style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }}
@@ -66,3 +66,4 @@ const LoginScreen = () => {
     );
 }
 export default LoginScreen;
+
