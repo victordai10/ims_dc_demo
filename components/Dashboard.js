@@ -1,70 +1,97 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { Avatar, Button, TextField } from 'react-native-paper';
 import { GlobalStoreContext } from '../store'
 
-const Dashboard = () => {
+import PreCall from './PreCall';
+
+
+const DashboardScreen = () => {
   const { store } = useContext(GlobalStoreContext);
   const navigation = useNavigation();
-
 
   const handleProfileClick = (event) => {
     navigation.navigate('Dashboard/Profile');
   }
 
-  const handleSubmit = (event) => {
+  const handleLogout = (event) => {
     event.preventDefault();
-    //set up call
+    navigation.navigate("LoginScreen");
   }
 
   return (
       <View style={styles.container}>
           <View style={styles.profileContainer}>
-            <Avatar style={styles.avatar}>
               {store.profilePic ? (
-              <Image
+              <Avatar.Image
                 source={{ uri: store.profilePic }}
                 style={styles.profileImage}
                 resizeMode="cover"
               />
               ) : (
-              <Image
+              <Avatar.Image
                 source={require('../assets/defaultpfp.png')}
                 style={styles.profileImage}
                 resizeMode="cover"
               />
               )}
-            </Avatar>
-            <Text style={styles.profileField}>Username: {store.username}</Text>
-            <Text style={styles.profileField}>Phone: {store.phone}</Text>
-            <Text style={styles.profileField}>Occupation: Real Estate Agent</Text>
+              <View style={styles.profileContent}>
+              
+              <Text style={styles.profileField}>Username: {store.username}</Text>
+              <Text style={styles.profileField}>Phone: {store.phone}</Text>
+              <Text style={styles.profileField}>Occupation: Real Estate Agent</Text>
+              </View>
           </View>
-          <View style={styles.formContainer}>
-            <Text style={styles.questionText}>Who would you like to set up a call with?</Text>
-            <TextField
-              style={styles.textField}
-              margin="normal"
-              required
-              fullWidth
-              id="callee"
-              label="Enter Callee's Username/ATTUID"
-              name="callee"
-              autoComplete="current-callee"
-              autoFocus
-            />
-            <Button
-              style={styles.button}
-              type="submit"
-              variant="contained"
-              onPress={handleSubmit}
-            >
-              Set Up Call
-            </Button>
-          </View>
+          
+          <TouchableOpacity
+            onPress={handleLogout}
+            style={styles.logoutButton}
+          >
+            <Text style={styles.logoutText}>Log Out</Text>
+          </TouchableOpacity>
+
+          <BottomTabNavigator
+        
+          />
       </View>
     );
 };
+
+const Tab = createBottomTabNavigator();
+// const Tab = createMaterialBottomTabNavigator();
+
+const Dashboard = () => {
+  return (
+    <Tab.Navigator
+        initialRouteName="Dashboard"
+        activeColor="#00a8e0"
+        inactiveColor="white"
+        shifting={true}
+        barStyle={styles.bottomTabNav}
+    >
+      <Tab.Screen 
+        name="Dashboard" 
+        component={Dashboard} 
+        options={{tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="home" color={color} size={26}/> )}}
+      />
+
+      <Tab.Screen 
+        name="Set Up Call" 
+        component={PreCall}
+        options={{tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="phone" color={color} size={26}/> )}}
+      />
+    </Tab.Navigator>
+  );
+}
+
 
 const styles = StyleSheet.create({
  container: {
@@ -73,23 +100,41 @@ const styles = StyleSheet.create({
    alignItems: 'center',
  },
  profileContainer: {
+   width: '100%',
+   height: '50%',
+   flex: 1,
    alignItems: 'center',
-   marginBottom: 20,
+   backgroundColor: 'black',
+   borderRadius: 15
+  
+ },
+ profileContent: {
+  marginTop: '20%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'left',
+  'profileImage': {
+    alignItems: 'center'
+  }
  },
  avatar: {
-   width: 100,
-   height: 100,
    backgroundColor: 'transparent',
    justifyContent: 'center',
    alignItems: 'center',
+   resizeMode: 'cover'
  },
  profileImage: {
-   width: '100%',
-   height: '100%',
+  width: '25%',
+  height: '25%',
+  alignItems: 'center',
+  marginTop: '20%',
+
  },
  profileField: {
    fontSize: 16,
    marginBottom: 10,
+   color: '#00a8e0',
+   fontWeight: 'bold'
  },
  formContainer: {
    borderRadius: 4,
@@ -104,13 +149,33 @@ const styles = StyleSheet.create({
  textField: {
    width: '100%',
  },
- button: {
+ logoutButton: {
    marginTop: 20,
    width: 175,
    height: 50,
-   backgroundColor: 'lightblue',
-   color: 'black',
+   borderColor: 'white',
+   backgroundColor: 'white',
+   borderRadius: 10,
+   color: 'white',
+   display: 'flex',
+   justifyContent: 'center',
+   alignItems: 'center',
+  
  },
+ logoutText: {
+  color: 'red',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontWeight: 'bold'
+ },
+ bottomTabNav: {
+  display: 'flex',
+  bottom: 0,
+  
+  position: 'absolute',
+  backgroundColor: 'black'
+ }
 });
 
 export default Dashboard;

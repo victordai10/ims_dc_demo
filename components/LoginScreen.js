@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { Avatar, Button, TextField } from 'react-native-paper';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { useNavigation } from '@react-navigation/native';
 import { GlobalStoreContext } from '../store';
@@ -19,13 +19,16 @@ const LoginScreen = () => {
  };
 
  return (
-    <View style={styles.page}>
+    <View style={styles.page} >
         <View style={styles.loginBox}>
+          <KeyboardAwareScrollView style={{flex: 1}}>
             <Image
                 source={require('../assets/attLogo.png')}
                 style={styles.logo}
             />
+            <Text style={styles.title}>Web RTC Demo App</Text>
             <Text style={styles.signInText}>Sign in</Text>
+            
             <TextInput
                 style={styles.inputs}
                 onChangeText={text => setUsername(text)}
@@ -42,12 +45,14 @@ const LoginScreen = () => {
                 autoCompleteType="password"
                 secureTextEntry
             />
+           
             <TouchableOpacity
                 onPress={handleSubmit}
                 style={styles.signInButton}
             >
             <Text style={styles.signInButtonText}>Sign In</Text>
             </TouchableOpacity>
+            </KeyboardAwareScrollView>
         </View>
     </View>
  );
@@ -61,19 +66,24 @@ const styles = StyleSheet.create({
    backgroundColor: '#00a8e0'
  },
  loginBox: {
-   width: '80%',
-   height: 400,
+   width: '85%',
+   height: '70%',
    borderRadius: 15,
    backgroundColor: 'white',
    justifyContent: 'center',
    alignItems: 'center',
-   paddingHorizontal: 20,
+   paddingHorizontal: 10,
    paddingVertical: 30,
  },
  logo: {
     width: 100,
     height: 100,
     marginBottom: 20,
+ },
+ title: {
+    marginBottom: 30,
+    fontSize: 20,
+    fontWeight: 'bold'
  },
  signInText: {
    fontSize: 18,
