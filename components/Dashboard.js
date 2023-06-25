@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
   // height: '25%',
   alignItems: 'center',
   marginTop: '20%',
-
  },
  profileField: {
    fontSize: 16,

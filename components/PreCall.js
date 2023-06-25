@@ -6,16 +6,22 @@ import { useNavigation } from '@react-navigation/native';
 import { GlobalStoreContext } from '../store';
 
 const PreCall = () => {
+    const [callee, setCallee] = useState("");
+    const [msg, setMsg] = useState("");
+    const navigation = useNavigation();
     const { store } = useContext(GlobalStoreContext);
+
     const handleSetUpCall = (event) => {
         event.preventDefault();
+        store.setCallee(callee);
+        store.setMsg(msg);
+        //EDIT LATER TO SET UP CONNECTION SOCKET using socket io 
+        navigation.navigate("InCall");
     }
 
-
-
     return (
-       <View style={styles.page}>
-            <ScrollView style={{marginHorizontal: 20}}>
+        <ScrollView showsVerticalScrollIndicator={true} persistentScrollbar={true}>
+        <View style={styles.page}>
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>Who would you like to set up a call with?</Text>
             </View>
@@ -23,6 +29,8 @@ const PreCall = () => {
                 <TextInput
                     style={styles.textField}
                     placeholder='Username of Callee...'
+                    value={callee}
+                    onChangeText={text => setCallee(text)}
                     autoCompleteType='Callee'
                     autoFocus
                 />
@@ -35,14 +43,14 @@ const PreCall = () => {
                     style={styles.textField}
                     multiline={true}
                     placeholder="Brief Message..."
-                    value={store.callee}
-                    onChange={text => store.setCallee(text)}
+                    value={msg}
+                    onChangeText={text => setMsg(text)}
                     autoCompleteType='Message'
                     autoFocus
+                    returnKeyType="done"
                 />
-             
             </View>
-            <View>
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity
                 style={styles.button}
                 onPress={handleSetUpCall}
@@ -50,8 +58,8 @@ const PreCall = () => {
                     <Text style={styles.buttonText}>Set Up Call</Text>
                 </TouchableOpacity>
             </View>
-            </ScrollView>
         </View> 
+        </ScrollView>
         
     );
 }
@@ -97,6 +105,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#90ee90'
     },
+    buttonContainer: {
+        margin: 30,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     button: {
         width: '45%',
         height: 50,
@@ -107,6 +121,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',      
     },
     buttonText: {
+        padding: 10,
         fontSize: 20,
         color: 'black'
     }
