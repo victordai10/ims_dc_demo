@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -12,7 +11,7 @@ import { GlobalStoreContext } from '../store'
 import PreCall from './PreCall';
 
 
-const DashboardScreen = () => {
+const Profile = () => {
   const { store } = useContext(GlobalStoreContext);
   const navigation = useNavigation();
 
@@ -55,16 +54,11 @@ const DashboardScreen = () => {
           >
             <Text style={styles.logoutText}>Log Out</Text>
           </TouchableOpacity>
-
-          <BottomTabNavigator
-        
-          />
       </View>
     );
 };
 
 const Tab = createBottomTabNavigator();
-// const Tab = createMaterialBottomTabNavigator();
 
 const Dashboard = () => {
   return (
@@ -76,10 +70,10 @@ const Dashboard = () => {
         barStyle={styles.bottomTabNav}
     >
       <Tab.Screen 
-        name="Dashboard" 
-        component={Dashboard} 
+        name="Profile" 
+        component={Profile} 
         options={{tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="home" color={color} size={26}/> )}}
+          <MaterialCommunityIcons name="account" color={color} size={26}/> )}}
       />
 
       <Tab.Screen 
@@ -101,21 +95,17 @@ const styles = StyleSheet.create({
  },
  profileContainer: {
    width: '100%',
-   height: '50%',
+   height: '40%',
    flex: 1,
    alignItems: 'center',
-   backgroundColor: 'black',
-   borderRadius: 15
+   backgroundColor: '#00a8e0',
+  //  borderRadius: 15
   
  },
  profileContent: {
   marginTop: '20%',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'left',
-  'profileImage': {
-    alignItems: 'center'
-  }
  },
  avatar: {
    backgroundColor: 'transparent',
@@ -124,8 +114,8 @@ const styles = StyleSheet.create({
    resizeMode: 'cover'
  },
  profileImage: {
-  width: '25%',
-  height: '25%',
+  // width: '25%',
+  // height: '25%',
   alignItems: 'center',
   marginTop: '20%',
 
@@ -133,25 +123,13 @@ const styles = StyleSheet.create({
  profileField: {
    fontSize: 16,
    marginBottom: 10,
-   color: '#00a8e0',
+   color: 'black',
    fontWeight: 'bold'
- },
- formContainer: {
-   borderRadius: 4,
-   margin: 10,
-   justifyContent: 'center',
-   alignItems: 'center',
- },
- questionText: {
-   fontSize: 16,
-   marginBottom: 10,
- },
- textField: {
-   width: '100%',
  },
  logoutButton: {
    marginTop: 20,
-   width: 175,
+   marginBottom: 20,
+   width: '45%',
    height: 50,
    borderColor: 'white',
    backgroundColor: 'white',
@@ -160,7 +138,11 @@ const styles = StyleSheet.create({
    display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
-  
+  'onPress': {
+    backgroundColor: 'black',
+    // transform: 'scale(1.05)',
+    // transition: 'all 0.3s',
+  }
  },
  logoutText: {
   color: 'red',
@@ -172,9 +154,8 @@ const styles = StyleSheet.create({
  bottomTabNav: {
   display: 'flex',
   bottom: 0,
-  
   position: 'absolute',
-  backgroundColor: 'black'
+  backgroundColor: 'black',
  }
 });
 

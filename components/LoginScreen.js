@@ -19,9 +19,8 @@ const LoginScreen = () => {
  };
 
  return (
-    <View style={styles.page} >
+    <KeyboardAvoidingView style={styles.page} >
         <View style={styles.loginBox}>
-          <KeyboardAwareScrollView style={{flex: 1}}>
             <Image
                 source={require('../assets/attLogo.png')}
                 style={styles.logo}
@@ -52,9 +51,8 @@ const LoginScreen = () => {
             >
             <Text style={styles.signInButtonText}>Sign In</Text>
             </TouchableOpacity>
-            </KeyboardAwareScrollView>
         </View>
-    </View>
+    </KeyboardAvoidingView>
  );
 };
 
